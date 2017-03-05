@@ -214,6 +214,13 @@ Custom property | Description | Default
           value: false
         },
         /**
+        * if the notification not read is false
+        */
+        read: {
+          type: Boolean,
+          value: false
+        },
+        /**
         * Array of notificatios
         */
         notifications: {
@@ -234,7 +241,6 @@ Custom property | Description | Default
             target = Polymer.dom(target).node.parentElement;
           }
           if (target !== that) {
-            that.counter='';
             that._close();
           }
         });
@@ -248,10 +254,14 @@ Custom property | Description | Default
       },
       _open: function () {
         this.opened = true;
+        this.read = true;
         this.fire('open-notifications');
       },
       _close: function () {
         this.opened = false;
+        if(this.read) {
+          this.counter='';
+        }
         this.fire('close-notifications');
       }
 
