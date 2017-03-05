@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 
 <!--
 `adom-notifications`
@@ -10,11 +11,97 @@ component that shows notifications in an admin panel
 <dom-module id="adom-notifications">
   <template>
     <style>
+      [hidden] {
+        display: none;
+      }
+      
       :host {
+        --adom-notifications-content-min-width: 400px;
+        --adom-notifications-button-font-size: 16px;
+        --adom-notifications-content-left-width: calc(var(--adom-notifications-content-min-width) - var(--adom-notifications-button-font-size));
+        --adom-notifications-content-left: calc(var(--adom-notifications-content-left-width) / -2);
+        --adom-notifications-arrow-up: calc(var(--adom-notifications-button-font-size)/2)
+      }
+      /* notifications Button */
+      
+      .notifications-button {
+        color: var(--adom-notifications-button-color, #121212);
+        font-size: var(--adom-notifications-button-font-size);
+        padding: 0.5em;
+        border: none;
+        cursor: pointer;
+        background: none;
+        @apply(--adom-notifications-button);
+      }
+      /* notifications button on hover & focus */
+      
+      .notifications-button:hover,
+      .notifications-button:focus {
+        background: none;
+        @apply(--adom-notifications-button-focus);
+      }
+      /* The container <div> - needed to position the notifications content */
+      
+      .notifications {
+        margin: auto;
+        width: 0;
+        position: relative;
+      }
+      /* notifications Content (Hidden by Default) */
+      
+      .notifications-content {
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: var(--adom-notifications-content-min-width, 300px);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        left: var(--adom-notifications-content-left);
+      }
+      /* Links inside the notifications */
+      
+      .notifications-title {
+        background: var(--adom-notifications-title-background, #121212);
+        color: var(--adom-notifications-title-color, #f1f1f1);
+        padding: 0.5em;
+        @apply(--adom-notifications-title-background);
+      }
+      
+      .notifications-content a {
+        color: #121212;
+        padding: 12px 16px;
+        text-decoration: none;
         display: block;
       }
+      /* Change color of notifications links on hover */
+      
+      .notifications-content a:hover {
+        background-color: #f1f1f1
+      }
+      
+      .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #121212;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        margin-left: var(--adom-notifications-arrow-up);
+      }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <div class="notifications">
+      <button on-tap="showNotifications" class="notifications-button">
+        <iron-icon role="button" icon="{{iconNotifications}}"></iron-icon>
+      </button>
+      <div class="arrow-up" hidden$="{{!opened}}"></div>
+      <div id="mynotifications" class="notifications-content" hidden$="{{!opened}}">
+        <div class="notifications-title">
+          <span class="title">Notifications</span>
+        </div>
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div>
   </template>
 
   <script>
@@ -23,11 +110,29 @@ component that shows notifications in an admin panel
       is: 'adom-notifications',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'adom-notifications',
+        /**
+         * name icon for notifications.
+         */
+        iconNotifications: {
+          type: String
         },
+        /**
+         * name icon for news notifications.
+         */
+        iconNotificationsActive: {
+          type: String
+        },
+        opened: {
+          type: Boolean,
+          value: false
+        }
       },
+      showNotifications: function () {
+        this._open();
+      },
+      _open: function () {
+        this.opened = true
+      }
 
     });
   </script>

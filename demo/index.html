@@ -1,28 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>adom-notifications demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>adom-notifications demo</title>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../adom-notifications.html">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: 'true',
+      useNativeCSSProperties: 'true'
+    }
+  </script>
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-    </style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic adom-notifications demo</h3>
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../adom-demo/adom-demo.html">
+  <link rel="import" href="../adom-notifications.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+    /*Common styles*/
+    
+    .component-info {
+      padding: 1em;
+    }
+    
+    .component-name {
+      color: #3e3e3e;
+    }
+    
+    .component-description {
+      color: #999;
+    }
+    
+    demo-snippet {
+      --demo-snippet-demo: {
+        display: block;
+      };
+    }
+  </style>
+</head>
+
+<body>
+  <adom-demo id="demo" option-selected="0">
+    <div>
+      <div class="component-info">
+        <h2 class="component-name">Basic header with navigation</h2>
+        <div class="component-description">
+          <p>Use this for a simple header only with a title</p>
+          <p>Import an iconset if you want to use de icon-navigation property in your proyect, for example, you can import polymer
+            component <a href="https://www.webcomponents.org/element/PolymerElements/iron-icons" target="_blank">iron-icons</a>            for his use.</p>
+        </div>
+      </div>
       <demo-snippet>
         <template>
-          <adom-notifications></adom-notifications>
+          <div class="container">
+            <adom-notifications icon-notifications="speaker-notes"></adom-notifications>
+          </div>
         </template>
       </demo-snippet>
     </div>
-  </body>
+  </adom-demo>
+
+  <script>
+    var menu = [
+      { optionName: 'Basic header' }
+    ];
+    var demo = document.getElementById('demo');
+    demo.optionsMenu = menu;
+  </script>
+</body>
+
 </html>
