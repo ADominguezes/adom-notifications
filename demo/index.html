@@ -57,8 +57,22 @@
       </div>
       <demo-snippet>
         <template>
+          <script>
+            var notification = [
+              { name: 'link 1' },
+              { name: 'link 2' }
+            ];
+            var demoNotifications = document.getElementById('demoNotifications');
+            demoNotifications.notifications = notification;
+          </script>
           <div class="container">
-            <adom-notifications icon-notifications="speaker-notes"></adom-notifications>
+            <adom-notifications id="demoNotifications" icon-notifications="speaker-notes" title-notifications="Notifications" counter="5">
+              <div class="content">
+                <template id="templ">
+                  <a href="#">[[item.name]]</a>
+                </template>
+              </div>
+            </adom-notifications>
           </div>
         </template>
       </demo-snippet>

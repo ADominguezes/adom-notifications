@@ -22,9 +22,13 @@ Custom property | Description | Default
 `--adom-notifications-button-icon-size` | size of icon | `30px`
 `--adom-notifications` | Empty mixin for notifications | `{}`
 `--adom-notifications-button` | Empty mixin for notifications button | `{}`
-`--adom-notifications-button-color` | color of notification button | `{}`
+`--adom-notifications-button-color` | color of notification button | `rgba(17, 17, 17, 0.4)`
 `--adom-notifications-button-hover` | Empty mixin for notifications button hover | `{}`
 `--adom-notifications-button-focus` | Empty mixin for notifications button focus | `{}`
+`--adom-notifications-counter` | Empty mixin for notifications counter | `{}`
+`--adom-notifications-counter-background` | background for notifications counter | `#ed1c24`
+`--adom-notifications-counter-background` | background for notifications counter | `#fff`
+`--adom-notifications-counter-size` | size for notifications counter | `calc()`
 `--adom-notifications-content` | Empty mixin for notifications content | `{}`
 `--adom-notifications-content-link` | Empty mixin for notifications content link | `{}`
 `--adom-notifications-content-link-hover` | Empty mixin for notifications content link hover | `{}`
@@ -32,6 +36,5 @@ Custom property | Description | Default
 `--adom-notifications-arrow` | Empty mixin for notifications arrow | `{}`
 `--adom-notifications-box` | Empty mixin for notifications box | `{}`
 `--adom-notifications-title` | Empty mixin for notifications title | `{}`
-`--adom-notifications-title-background` | background for notifications title | `#121212`
-`--adom-notifications-title-color` | color for notifications title | `#f1f1f1`
-
+`--adom-notifications-title-background` | background for notifications title | `rgba(17, 17, 17, 0.2)`
+`--adom-notifications-title-color` | color for notifications title | `#121212`

@@ -25,9 +25,13 @@ Custom property | Description | Default
 `--adom-notifications-button-icon-size` | size of icon | `30px`
 `--adom-notifications` | Empty mixin for notifications | `{}`
 `--adom-notifications-button` | Empty mixin for notifications button | `{}`
-`--adom-notifications-button-color` | color of notification button | `{}`
+`--adom-notifications-button-color` | color of notification button | `rgba(17, 17, 17, 0.4)`
 `--adom-notifications-button-hover` | Empty mixin for notifications button hover | `{}`
 `--adom-notifications-button-focus` | Empty mixin for notifications button focus | `{}`
+`--adom-notifications-counter` | Empty mixin for notifications counter | `{}`
+`--adom-notifications-counter-background` | background for notifications counter | `#ed1c24`
+`--adom-notifications-counter-background` | background for notifications counter | `#fff`
+`--adom-notifications-counter-size` | size for notifications counter | `calc()`
 `--adom-notifications-content` | Empty mixin for notifications content | `{}`
 `--adom-notifications-content-link` | Empty mixin for notifications content link | `{}`
 `--adom-notifications-content-link-hover` | Empty mixin for notifications content link hover | `{}`
@@ -35,8 +39,8 @@ Custom property | Description | Default
 `--adom-notifications-arrow` | Empty mixin for notifications arrow | `{}`
 `--adom-notifications-box` | Empty mixin for notifications box | `{}`
 `--adom-notifications-title` | Empty mixin for notifications title | `{}`
-`--adom-notifications-title-background` | background for notifications title | `#121212`
-`--adom-notifications-title-color` | color for notifications title | `#f1f1f1`
+`--adom-notifications-title-background` | background for notifications title | `rgba(17, 17, 17, 0.2)`
+`--adom-notifications-title-color` | color for notifications title | `#121212`
 
 @demo demo/index.html 
 -->
@@ -49,17 +53,15 @@ Custom property | Description | Default
       }
       
       :host {
-        --adom-notifications-content-min-width: 300px;
+        --adom-notifications-content-min-width: 400px;
         --adom-notifications-button-icon-size: 30px;
-
         --adom-notifications-content-left-width: calc(var(--adom-notifications-content-min-width) - var(--adom-notifications-button-icon-size));
-
         --adom-notifications-content-left: calc(var(--adom-notifications-content-left-width) / -2);
-
         --adom-notifications-arrow-up: calc(var(--adom-notifications-content-left-width)/2);
-        
+        --adom-notifications-counter-size: calc(var(--adom-notifications-button-icon-size)/2);
+        --adom-notifications-counter-font-size: calc(var(--adom-notifications-button-icon-size)/2.2);
+        --adom-notifications-counter-left: calc(var(--adom-notifications-button-icon-size)/1.5);
       }
-      /* The container <div> - needed to position the notifications content */
       
       .notifications {
         margin: auto;
@@ -67,28 +69,43 @@ Custom property | Description | Default
         position: relative;
         @apply(--adom-notifications);
       }
-      /* notifications Button */
       
       .notifications-button {
-        color: var(--adom-notifications-button-color, #121212);
+        color: var(--adom-notifications-button-color, rgba(17, 17, 17, 0.4));
         padding: 0;
         border: none;
         cursor: pointer;
         background: none;
         @apply(--adom-notifications-button);
       }
-      /* notifications button on hover & focus */
       
       .notifications-button:hover {
         background: none;
         @apply(--adom-notifications-button-hover);
       }
+      
       .notifications-button:focus {
         background: none;
         @apply(--adom-notifications-button-focus);
       }
-
-      /* notifications Content (Hidden by Default) */
+      
+      iron-icon {
+        --iron-icon-width: var(--adom-notifications-button-icon-size);
+        --iron-icon-height: var(--adom-notifications-button-icon-size);
+      }
+      
+      .counter-notifications {
+        position: absolute;
+        background: var(--adom-notifications-counter-background, #ed1c24);
+        color: var(--adom-notifications-counter-color, #fff);
+        border-radius: 50%;
+        padding: 0.1em;
+        z-index: 1;
+        font-size: var(--adom-notifications-counter-font-size);
+        margin-left: var(--adom-notifications-counter-left);
+        width: var(--adom-notifications-counter-size);
+        height: var(--adom-notifications-counter-size);
+      }
       
       .notifications-content {
         position: absolute;
@@ -105,25 +122,23 @@ Custom property | Description | Default
         display: block;
         @apply(--adom-notifications-content-link);
       }
-      /* Change color of notifications links on hover */
       
       .notifications-content a:hover {
-        background-color: #f1f1f1;
+        background-color: rgba(17, 17, 17, 0.1);
         @apply(--adom-notifications-content-link-hover);
       }
-
+      
       .notifications-content a:focus {
-        background-color: #f1f1f1;
+        background-color: rgba(17, 17, 17, 0.1);
         @apply(--adom-notifications-content-link-focus);
       }
-      /* Links inside the notifications */
       
       .notifications-arrow {
         width: 0;
         height: 0;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-bottom: 10px solid #121212;
+        border-bottom: 10px solid rgba(17, 17, 17, 0.2);
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         margin: 0 auto;
         @apply(--adom-notifications-arrow);
@@ -136,31 +151,32 @@ Custom property | Description | Default
       }
       
       .notifications-title {
-        background: var(--adom-notifications-title-background, #121212);
-        color: var(--adom-notifications-title-color, #f1f1f1);
+        background: var(--adom-notifications-title-background, rgba(17, 17, 17, 0.2));
+        color: var(--adom-notifications-title-color, #121212);
         padding: 0.5em;
+        font-size: 16px;
+        font-weight: lighter;
         @apply(--adom-notifications-title);
       }
-
-      iron-icon {
-        --iron-icon-width: var(--adom-notifications-button-icon-size);
-        --iron-icon-height: var(--adom-notifications-button-icon-size);
-      }
-
     </style>
     <div class="notifications">
       <button on-tap="showNotifications" class="notifications-button">
+        
+        <template is="dom-if" if="{{counter}}">
+          <div class="counter-notifications">
+            {{counter}}
+          </div>
+        </template>
         <iron-icon role="button" icon="{{iconNotifications}}"></iron-icon>
       </button>
       <div id="mynotifications" class="notifications-content" hidden$="{{!opened}}">
         <div class="notifications-arrow" hidden$="{{!opened}}"></div>
         <div class="notifications-box">
           <div class="notifications-title">
-            <span class="title">Notifications</span>
+            <span>{{titleNotifications}}</span>
           </div>
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+          <content></content>
+          <template is="dom-repeat" id="repeater" items="[[notifications]]"></template>
         </div>
       </div>
     </div>
@@ -179,21 +195,64 @@ Custom property | Description | Default
           type: String
         },
         /**
-         * name icon for news notifications.
-         */
-        iconNotificationsActive: {
+        * Title of notifications box
+        */
+        titleNotifications: {
           type: String
         },
+        /**
+        * Counter of notifications not read
+        */
+        counter: {
+          type: String
+        },
+        /**
+        * if opened is true it shows the notifications box
+        */
         opened: {
           type: Boolean,
           value: false
+        },
+        /**
+        * Array of notificatios
+        */
+        notifications: {
+          type: Array,
+          value: [
+            {id: 1, name: 'a'},
+            {id: 2, name: 'b'}
+          ],
+          notify: true
         }
+      },
+      attached: function () {
+        var that = this;
+        window.addEventListener("click", function (e) {
+          var target = e.target;
+
+          while (target != that && target != document.body) {
+            target = Polymer.dom(target).node.parentElement;
+          }
+          if (target !== that) {
+            that.counter='';
+            that._close();
+          }
+        });
+
+        this.$.repeater.templatize(this.querySelector('#templ'));
+        Polymer.Bind.prepareModel(this.$.repeater);
+        Polymer.Base.prepareModelNotifyPath(this.$.repeater);
       },
       showNotifications: function () {
         this._open();
       },
       _open: function () {
-        this.opened = true
+        this.opened = true;
+        this.fire('open-notifications');
+      },
+      _close: function () {
+        this.opened = false;
+        this.fire('close-notifications');
       }
 
     });
