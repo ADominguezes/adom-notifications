@@ -2,37 +2,36 @@
 
 component that shows notifications in an admin panel
 
-## Install the Polymer-CLI
+You can change the width notification box with css variable `--adom-notifications-content-min-width` by default is 300px, but it's possible change this.
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+With the css variable `--adom-notifications-button-icon-size` you can change size of icon. By default is 30px.
 
-## Viewing Your Application
+Example:
 
-```
-$ polymer serve
-```
+    <adom-notifications icon-notifications="speaker-notes">
+    </adom-notifications>
 
-## Building Your Application
+### Styling
 
-```
-$ polymer build
-```
+The following custom properties and mixins are available for styling:
 
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
+Custom property | Description | Default
+----------------|-------------|----------
+`--adom-notifications-content-min-width` | min-width for content box of notifications  | `300px`
+`--adom-notifications-content-left` | left for content left | `calc()`
+`--adom-notifications-button-icon-size` | size of icon | `30px`
+`--adom-notifications` | Empty mixin for notifications | `{}`
+`--adom-notifications-button` | Empty mixin for notifications button | `{}`
+`--adom-notifications-button-color` | color of notification button | `{}`
+`--adom-notifications-button-hover` | Empty mixin for notifications button hover | `{}`
+`--adom-notifications-button-focus` | Empty mixin for notifications button focus | `{}`
+`--adom-notifications-content` | Empty mixin for notifications content | `{}`
+`--adom-notifications-content-link` | Empty mixin for notifications content link | `{}`
+`--adom-notifications-content-link-hover` | Empty mixin for notifications content link hover | `{}`
+`--adom-notifications-content-link-focus` | Empty mixin for notifications content link focus | `{}`
+`--adom-notifications-arrow` | Empty mixin for notifications arrow | `{}`
+`--adom-notifications-box` | Empty mixin for notifications box | `{}`
+`--adom-notifications-title` | Empty mixin for notifications title | `{}`
+`--adom-notifications-title-background` | background for notifications title | `#121212`
+`--adom-notifications-title-color` | color for notifications title | `#f1f1f1`
 
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
