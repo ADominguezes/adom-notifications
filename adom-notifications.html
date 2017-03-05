@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`adom-notifications`
+component that shows notifications in an admin panel
+
+@demo demo/index.html 
+-->
+
+<dom-module id="adom-notifications">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'adom-notifications',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'adom-notifications',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
