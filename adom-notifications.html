@@ -233,18 +233,6 @@ Custom property | Description | Default
         }
       },
       attached: function () {
-        var that = this;
-        window.addEventListener("click", function (e) {
-          var target = e.target;
-
-          while (target != that && target != document.body) {
-            target = Polymer.dom(target).node.parentElement;
-          }
-          if (target !== that) {
-            that._close();
-          }
-        });
-
         this.$.repeater.templatize(this.querySelector('#templ'));
         Polymer.Bind.prepareModel(this.$.repeater);
         Polymer.Base.prepareModelNotifyPath(this.$.repeater);
